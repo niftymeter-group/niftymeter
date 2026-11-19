@@ -1,0 +1,9 @@
+node_modules
+.output
+dist
+.nitro
+.tanstack
+data/*.db*
+!data/.gitkeep
+.env
+src/routeTree.gen.ts
