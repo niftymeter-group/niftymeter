@@ -8,7 +8,7 @@ import { POLICY_FIELDS } from '~/lib/schemas'
 import { parseDt, timeAgo } from '~/lib/util'
 
 export const Route = createFileRoute('/admin/_panel/security')({
-  loader: async () => ({ sec: await getSecurity(), cfg: await getAdminSettings() }),
+  loader: async () => { const [sec, cfg] = await Promise.all([getSecurity(), getAdminSettings()]); return { sec, cfg } },
   component: Security,
 })
 

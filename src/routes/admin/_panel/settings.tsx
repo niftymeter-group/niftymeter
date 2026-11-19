@@ -7,7 +7,7 @@ import { getAdminSettings, getSystemInfo, housekeeping } from '~/fns/admin'
 import { SETTINGS_FIELDS } from '~/lib/schemas'
 
 export const Route = createFileRoute('/admin/_panel/settings')({
-  loader: async () => ({ ...(await getAdminSettings()), sys: await getSystemInfo() }),
+  loader: async () => { const [s, sys] = await Promise.all([getAdminSettings(), getSystemInfo()]); return { ...s, sys } },
   component: SettingsPage,
 })
 

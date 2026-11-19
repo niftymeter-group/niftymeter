@@ -10,7 +10,7 @@ import { brokerDisclaimer } from '~/lib/site'
 import { assetUrl, lines } from '~/lib/util'
 
 export const Route = createFileRoute('/admin/_panel/offer')({
-  loader: async () => ({ ...(await getAdminSettings()), stats: await getOfferStats() }),
+  loader: async () => { const [s, stats] = await Promise.all([getAdminSettings(), getOfferStats()]); return { ...s, stats } },
   component: Offer,
 })
 

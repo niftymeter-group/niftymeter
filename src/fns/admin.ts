@@ -5,7 +5,7 @@ import { CONTENT_TABS, fieldKeys, groupFields } from '~/lib/schemas'
 import { bannerState, trackingIds } from '~/lib/site'
 import { lines } from '~/lib/util'
 import { aiComplete, kbSearchAnswer } from '~/server/ai.server'
-import { endOtherSessions, hashPassword, logActivity, passwordProblem, resetCreate, resetSendEmail, verifyPassword, LOCK_MINUTES, MAX_ATTEMPTS } from '~/server/auth.server'
+import { currentAdmin, endOtherSessions, hashPassword, logActivity, passwordProblem, resetCreate, resetSendEmail, verifyPassword, LOCK_MINUTES, MAX_ATTEMPTS } from '~/server/auth.server'
 import { ago, all, dayStart, exec, inList, insert, now, one, restoreKb, T, val } from '~/server/db.server'
 import { saveFields } from '~/server/fields.server'
 import { httpPostJson, sendMail } from '~/server/mail.server'
@@ -22,10 +22,15 @@ const cut = (s: unknown, n: number) => Array.from(String(s ?? '').trim()).slice(
 
 /* ───────────────────────── shell & settings ───────────────────────── */
 
-export const getShell = createServerFn({ method: 'GET' }).middleware([adminMw]).handler(async ({ context }) => {
-  const S = await getSettings()
+/** Sidebar data + auth state in ONE round trip (the layout used to make two). */
+export const getShell = createServerFn({ method: 'GET' }).handler(async () => {
+  const [admin, S] = await Promise.all([currentAdmin(), getSettings()])
+  if (!admin) {
+    return { admin: null, hasAdmins: Number(await val(`SELECT COUNT(*) FROM ${T.admins}`)) > 0, newLeads: 0, siteName: '', logo: '', favicon: '', maintenance: false }
+  }
   return {
-    admin: context.admin,
+    admin,
+    hasAdmins: true,
     newLeads: Number(await val(`SELECT COUNT(*) FROM ${T.leads} WHERE status = 'new'`)),
     siteName: str(S, 'site_name'),
     logo: str(S, 'logo') || 'assets/img/logo.png',
@@ -147,29 +152,29 @@ export const setBanner = createServerFn({ method: 'POST' })
 /* ───────────────────────── dashboard ───────────────────────── */
 
 export const getDashboard = createServerFn({ method: 'GET' }).middleware([adminMw]).handler(async () => {
-  const S = await getSettings()
   const L = T.leads
   const cnt = async (where = '1=1', p: (string | number)[] = []) => Number(await val(`SELECT COUNT(*) FROM ${L} WHERE ${where}`, p))
-  const total = await cnt()
-  const stats: [string, number][] = [
-    ['Today', await cnt('created_at >= ?', [dayStart(0)])],
-    ['Last 7 days', await cnt('created_at >= ?', [dayStart(6)])],
-    ['Last 30 days', await cnt('created_at >= ?', [dayStart(29)])],
-    ['All time', total],
-  ]
-  const fresh = await cnt("status = 'new'")
-  const converted = await cnt("status = 'converted'")
-  const rows = await all(`SELECT SUBSTR(created_at,1,10) d, COUNT(*) n FROM ${L} WHERE created_at >= ? GROUP BY SUBSTR(created_at,1,10)`, [dayStart(13)])
+  // all queries in parallel: one network round trip instead of ~12
+  const [S, total, today, d7, d30, fresh, converted, rows, sources, recent] = await Promise.all([
+    getSettings(),
+    cnt(),
+    cnt('created_at >= ?', [dayStart(0)]),
+    cnt('created_at >= ?', [dayStart(6)]),
+    cnt('created_at >= ?', [dayStart(29)]),
+    cnt("status = 'new'"),
+    cnt("status = 'converted'"),
+    all(`SELECT SUBSTR(created_at,1,10) d, COUNT(*) n FROM ${L} WHERE created_at >= ? GROUP BY SUBSTR(created_at,1,10)`, [dayStart(13)]),
+    all(`SELECT COALESCE(NULLIF(utm_source,''),'(direct / organic)') src, COUNT(*) n, SUM(CASE WHEN status='converted' THEN 1 ELSE 0 END) conv
+     FROM ${L} WHERE created_at >= ? GROUP BY COALESCE(NULLIF(utm_source,''),'(direct / organic)') ORDER BY n DESC LIMIT 6`, [dayStart(29)]),
+    all(`SELECT id, first_name, last_name, email, status, utm_source, created_at FROM ${L} ORDER BY id DESC LIMIT 8`),
+  ])
+  const stats: [string, number][] = [['Today', today], ['Last 7 days', d7], ['Last 30 days', d30], ['All time', total]]
   const byDay = Object.fromEntries(rows.map((r) => [String(r.d), Number(r.n)]))
   const series: { d: string; n: number }[] = []
   for (let i = 13; i >= 0; i--) {
     const d = dayStart(i).slice(0, 10)
     series.push({ d, n: byDay[d] ?? 0 })
   }
-  const sources = await all(
-    `SELECT COALESCE(NULLIF(utm_source,''),'(direct / organic)') src, COUNT(*) n, SUM(CASE WHEN status='converted' THEN 1 ELSE 0 END) conv
-     FROM ${L} WHERE created_at >= ? GROUP BY COALESCE(NULLIF(utm_source,''),'(direct / organic)') ORDER BY n DESC LIMIT 6`, [dayStart(29)])
-  const recent = await all(`SELECT id, first_name, last_name, email, status, utm_source, created_at FROM ${L} ORDER BY id DESC LIMIT 8`)
   const check: [string, boolean, string][] = [
     str(S, 'offer_model') === 'broker'
       ? ['Add your broker AP link, logo and AP number', !!(str(S, 'broker_link') && str(S, 'broker_ap_id') && !str(S, 'broker_logo').includes('placeholder')), '/admin/offer']
@@ -198,13 +203,20 @@ export const listLeads = createServerFn({ method: 'GET' })
     const statuses = leadStatuses(S)
     const { W, p } = leadWhere(data, statuses)
     const per = 25
-    const total = Number(await val(`SELECT COUNT(*) FROM ${T.leads} WHERE ${W}`, p))
+    const want = Math.max(1, Number(data.page) || 1)
+    const [total, rowsWanted, intRows, srcRows, cntRows] = await Promise.all([
+      val(`SELECT COUNT(*) FROM ${T.leads} WHERE ${W}`, p).then(Number),
+      all(`SELECT id, first_name, last_name, email, phone, interest, message, notes, utm_source, utm_campaign, status, created_at FROM ${T.leads} WHERE ${W} ORDER BY id DESC LIMIT ${per} OFFSET ${(want - 1) * per}`, p),
+      all(`SELECT DISTINCT interest FROM ${T.leads} WHERE interest IS NOT NULL AND interest <> '' ORDER BY interest`),
+      all(`SELECT DISTINCT utm_source FROM ${T.leads} WHERE utm_source IS NOT NULL AND utm_source <> '' ORDER BY utm_source`),
+      all(`SELECT status, COUNT(*) n FROM ${T.leads} GROUP BY status`),
+    ])
     const pages = Math.max(1, Math.ceil(total / per))
-    const page = Math.max(1, Math.min(pages, Number(data.page) || 1))
-    const rows = await all(`SELECT id, first_name, last_name, email, phone, interest, message, notes, utm_source, utm_campaign, status, created_at FROM ${T.leads} WHERE ${W} ORDER BY id DESC LIMIT ${per} OFFSET ${(page - 1) * per}`, p)
-    const interests = (await all(`SELECT DISTINCT interest FROM ${T.leads} WHERE interest IS NOT NULL AND interest <> '' ORDER BY interest`)).map((r) => String(r.interest))
-    const sources = (await all(`SELECT DISTINCT utm_source FROM ${T.leads} WHERE utm_source IS NOT NULL AND utm_source <> '' ORDER BY utm_source`)).map((r) => String(r.utm_source))
-    const counts = Object.fromEntries((await all(`SELECT status, COUNT(*) n FROM ${T.leads} GROUP BY status`)).map((r) => [String(r.status), Number(r.n)]))
+    const page = Math.min(pages, want)
+    const rows = page === want ? rowsWanted : await all(`SELECT id, first_name, last_name, email, phone, interest, message, notes, utm_source, utm_campaign, status, created_at FROM ${T.leads} WHERE ${W} ORDER BY id DESC LIMIT ${per} OFFSET ${(page - 1) * per}`, p)
+    const interests = intRows.map((r) => String(r.interest))
+    const sources = srcRows.map((r) => String(r.utm_source))
+    const counts = Object.fromEntries(cntRows.map((r) => [String(r.status), Number(r.n)]))
     return { rows, total, page, pages, statuses, interests, sources, counts }
   })
 

@@ -1,5 +1,5 @@
 /** Admin UI pieces: layout shell, settings form, banner card, small helpers. */
-import { Link, getRouteApi, useNavigate, useRouterState } from '@tanstack/react-router'
+import { Link, getRouteApi, useNavigate, useRouter, useRouterState } from '@tanstack/react-router'
 import { Fragment, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useServerFn } from '@tanstack/react-start'
 import { logout } from '~/fns/auth'
@@ -29,6 +29,7 @@ export interface ShellData {
 export function AdminShell({ shell, children }: { shell: ShellData; children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname.replace(/\/+$/, '') || '/' })
   const navigate = useNavigate()
+  const router = useRouter()
   const doLogout = useServerFn(logout)
   const [open, setOpen] = useState(false)
   useEffect(() => { document.body.classList.toggle('sb-open', open) }, [open])
@@ -56,7 +57,7 @@ export function AdminShell({ shell, children }: { shell: ShellData; children: Re
             <span className="avatar">{Array.from(shell.admin.name)[0]?.toUpperCase()}</span>
             <span><strong>{shell.admin.name}</strong><small>{shell.admin.role[0]!.toUpperCase() + shell.admin.role.slice(1)}</small></span>
           </Link>
-          <button className="btn btn-sm btn-ghost btn-block" type="button" onClick={async () => { await doLogout(); navigate({ to: '/admin/login' }) }}>Log out</button>
+          <button className="btn btn-sm btn-ghost btn-block" type="button" onClick={async () => { await doLogout(); router.clearCache(); navigate({ to: '/admin/login' }) }}>Log out</button>
         </div>
       </aside>
       <div className="sb-backdrop" onClick={() => setOpen(false)}></div>

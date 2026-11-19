@@ -8,7 +8,7 @@ import { AI_FIELDS } from '~/lib/schemas'
 import { esc, numberFormat } from '~/lib/util'
 
 export const Route = createFileRoute('/admin/_panel/ai')({
-  loader: async () => ({ ...(await getAdminSettings()), ai: await getAiStats() }),
+  loader: async () => { const [s, ai] = await Promise.all([getAdminSettings(), getAiStats()]); return { ...s, ai } },
   component: Ai,
 })
 

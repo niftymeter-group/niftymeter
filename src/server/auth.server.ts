@@ -69,19 +69,19 @@ export async function currentAdmin(): Promise<Admin | null> {
   let t: string | undefined
   try { t = getCookie(COOKIE) } catch { return null }
   if (!t || !/^[a-f0-9]{64}$/.test(t)) return null
-  const s = await one(`SELECT id, admin_id, last_seen FROM ${T.sessions} WHERE token_hash = ?`, [sha256(t)])
-  if (!s) return null
+  // one round trip: session + its admin
+  const a = await one(
+    `SELECT s.id sid, s.last_seen, a.id, a.name, a.email, a.role, a.is_active
+     FROM ${T.sessions} s LEFT JOIN ${T.admins} a ON a.id = s.admin_id WHERE s.token_hash = ?`,
+    [sha256(t)],
+  )
+  if (!a) return null
   const nowS = Math.floor(Date.now() / 1000)
-  if (nowS - Number(s.last_seen) > SESSION_IDLE) {
-    await exec(`DELETE FROM ${T.sessions} WHERE id = ?`, [s.id])
+  if (nowS - Number(a.last_seen) > SESSION_IDLE || a.id == null || Number(a.is_active) !== 1) {
+    await exec(`DELETE FROM ${T.sessions} WHERE id = ?`, [a.sid])
     return null
   }
-  const a = await one(`SELECT id, name, email, role, is_active FROM ${T.admins} WHERE id = ?`, [s.admin_id])
-  if (!a || Number(a.is_active) !== 1) {
-    await exec(`DELETE FROM ${T.sessions} WHERE id = ?`, [s.id])
-    return null
-  }
-  if (nowS - Number(s.last_seen) > 60) await exec(`UPDATE ${T.sessions} SET last_seen = ? WHERE id = ?`, [nowS, s.id])
+  if (nowS - Number(a.last_seen) > 300) await exec(`UPDATE ${T.sessions} SET last_seen = ? WHERE id = ?`, [nowS, a.sid])
   return { id: Number(a.id), name: String(a.name), email: String(a.email), role: a.role === 'owner' ? 'owner' : 'admin', is_active: 1 }
 }
 
