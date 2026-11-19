@@ -32,7 +32,7 @@ Requires **Node.js 22.9+**.
 Uploaded images are stored **in the database**, so they survive redeploys on any host.
 Plain cPanel shared hosting (PHP-only) can't run this version — it needs a Node host.
 
-Other env vars: `SITE_URL` (public address, used in emails/sitemap), `TZ` (default `Asia/Kolkata`), `TRUST_PROXY=1` behind Cloudflare / a reverse proxy.
+Other env vars: `SITE_URL` (public address, used in emails/sitemap), `APP_TZ` (default `Asia/Kolkata`), `TRUST_PROXY=1` behind Cloudflare / a reverse proxy.
 
 ## What maps to what
 

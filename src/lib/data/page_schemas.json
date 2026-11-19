@@ -1,0 +1,949 @@
+{
+ "offer": {
+  "general": [
+   {
+    "key": "show_pricing",
+    "label": "Show the Pricing section on the website",
+    "type": "toggle"
+   },
+   {
+    "key": "offer_model",
+    "label": "Which card should the Pricing section show?",
+    "type": "select",
+    "options": [
+     [
+      "pricing",
+      "One-time price (customer pays you)"
+     ],
+     [
+      "broker",
+      "Partner broker (free access via your AP link)"
+     ]
+    ],
+    "help": "Only one card is shown at a time. Switch any time — both cards keep their settings."
+   }
+  ],
+  "pricing": [
+   {
+    "key": "h1",
+    "label": "Section text",
+    "type": "heading"
+   },
+   {
+    "key": "pricing_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "pricing_title",
+    "label": "Title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "pricing_sub",
+    "label": "Description",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "h2",
+    "label": "Price card",
+    "type": "heading"
+   },
+   {
+    "key": "price_name",
+    "label": "Product name",
+    "type": "text"
+   },
+   {
+    "key": "price_badge",
+    "label": "Badge",
+    "type": "text"
+   },
+   {
+    "key": "price_amount",
+    "label": "Price",
+    "type": "text",
+    "placeholder": "₹9,999"
+   },
+   {
+    "key": "price_mrp",
+    "label": "Original price (optional, shown crossed out)",
+    "type": "text",
+    "placeholder": "₹14,999"
+   },
+   {
+    "key": "price_unit",
+    "label": "Price label",
+    "type": "text",
+    "placeholder": "one-time"
+   },
+   {
+    "key": "price_note",
+    "label": "Note under price",
+    "type": "text"
+   },
+   {
+    "key": "price_features",
+    "label": "What's included",
+    "type": "lines",
+    "rows": 6
+   },
+   {
+    "key": "price_btn",
+    "label": "Button text",
+    "type": "text"
+   },
+   {
+    "key": "price_link",
+    "label": "Payment link (Razorpay / Stripe / PayU / Instamojo…)",
+    "type": "url",
+    "placeholder": "https://rzp.io/l/…",
+    "help": "Without a link, the button scrolls to the enquiry form."
+   }
+  ],
+  "broker": [
+   {
+    "key": "h3",
+    "label": "Broker brand",
+    "type": "heading",
+    "help": "Use the broker's official logo and name only as permitted under your AP agreement."
+   },
+   {
+    "key": "broker_name",
+    "label": "Broker name",
+    "type": "text",
+    "placeholder": "e.g. the broking company's registered name"
+   },
+   {
+    "key": "broker_logo",
+    "label": "Broker logo (light version for dark background, transparent PNG)",
+    "type": "image",
+    "wide": true
+   },
+   {
+    "key": "broker_logo_height",
+    "label": "Logo height (px)",
+    "type": "number",
+    "min": 20,
+    "max": 80
+   },
+   {
+    "key": "h4",
+    "label": "Your AP details",
+    "type": "heading"
+   },
+   {
+    "key": "broker_link",
+    "label": "AP referral / account-opening link",
+    "type": "url",
+    "placeholder": "https://…",
+    "help": "Every button uses a tracked link (<code>go.php?to=broker</code>) so clicks are counted below, then forwards to this link."
+   },
+   {
+    "key": "broker_ap_id",
+    "label": "AP registration number",
+    "type": "text"
+   },
+   {
+    "key": "broker_disclaimer",
+    "label": "AP disclosure",
+    "type": "textarea",
+    "rows": 4,
+    "help": "<code>{broker}</code> = broker name, <code>{ap}</code> = your AP number. Shown under the broker card and in the footer. Keep the wording your broker requires."
+   },
+   {
+    "key": "h5",
+    "label": "Broker card (Pricing section)",
+    "type": "heading"
+   },
+   {
+    "key": "broker_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "broker_title",
+    "label": "Title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "broker_sub",
+    "label": "Description",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "broker_badge",
+    "label": "Badge",
+    "type": "text"
+   },
+   {
+    "key": "broker_offer",
+    "label": "Offer headline",
+    "type": "text"
+   },
+   {
+    "key": "broker_offer_note",
+    "label": "Offer note",
+    "type": "text"
+   },
+   {
+    "key": "broker_benefits",
+    "label": "Benefits",
+    "type": "lines",
+    "rows": 5
+   },
+   {
+    "key": "broker_steps",
+    "label": "How it works (numbered steps)",
+    "type": "lines",
+    "rows": 4
+   },
+   {
+    "key": "broker_btn",
+    "label": "Button text",
+    "type": "text"
+   },
+   {
+    "key": "h6",
+    "label": "Broker elsewhere on the site",
+    "type": "heading"
+   },
+   {
+    "key": "show_broker_strip",
+    "label": "Show the \"In partnership with\" strip below the hero",
+    "type": "toggle"
+   },
+   {
+    "key": "broker_strip_text",
+    "label": "Strip text",
+    "type": "text",
+    "wide": true
+   },
+   {
+    "key": "broker_in_success",
+    "label": "Show the broker offer after someone submits the enquiry form (broker model only)",
+    "type": "toggle"
+   }
+  ]
+ },
+ "links": {
+  "fields": [
+   {
+    "key": "h0",
+    "label": "Payment & partner links",
+    "type": "heading",
+    "help": "Card text, price and broker branding are in <a href=\"offer.php\">Pricing &amp; Broker</a>."
+   },
+   {
+    "key": "price_link",
+    "label": "One-time payment link",
+    "type": "url",
+    "placeholder": "https://rzp.io/l/…"
+   },
+   {
+    "key": "broker_link",
+    "label": "Broker AP referral link",
+    "type": "url",
+    "placeholder": "https://…"
+   },
+   {
+    "key": "h1",
+    "label": "Social media",
+    "type": "heading",
+    "help": "Leave a field empty to hide that icon on the site."
+   },
+   {
+    "key": "social_instagram",
+    "label": "Instagram URL",
+    "type": "url",
+    "placeholder": "https://instagram.com/niftymeter"
+   },
+   {
+    "key": "social_youtube",
+    "label": "YouTube channel URL",
+    "type": "url",
+    "placeholder": "https://youtube.com/@niftymeter"
+   },
+   {
+    "key": "social_telegram",
+    "label": "Telegram URL",
+    "type": "url",
+    "placeholder": "https://t.me/niftymeter"
+   },
+   {
+    "key": "social_twitter",
+    "label": "X / Twitter URL",
+    "type": "url",
+    "placeholder": "https://x.com/niftymeter"
+   },
+   {
+    "key": "social_facebook",
+    "label": "Facebook page URL",
+    "type": "url"
+   },
+   {
+    "key": "social_linkedin",
+    "label": "LinkedIn URL",
+    "type": "url"
+   },
+   {
+    "key": "h2",
+    "label": "WhatsApp & contact",
+    "type": "heading"
+   },
+   {
+    "key": "whatsapp_number",
+    "label": "WhatsApp number (with country code, digits only)",
+    "type": "text",
+    "placeholder": "919876543210"
+   },
+   {
+    "key": "whatsapp_msg",
+    "label": "Pre-filled WhatsApp message",
+    "type": "text"
+   },
+   {
+    "key": "whatsapp_float",
+    "label": "Show floating WhatsApp chat button",
+    "type": "toggle"
+   },
+   {
+    "key": "contact_email",
+    "label": "Public contact email",
+    "type": "email"
+   }
+  ]
+ },
+ "branding": {
+  "fields": [
+   {
+    "key": "site_name",
+    "label": "Brand name",
+    "type": "text",
+    "help": "Used in the page title, popups, emails and admin."
+   },
+   {
+    "key": "site_tagline",
+    "label": "Tagline",
+    "type": "text"
+   },
+   {
+    "key": "h1",
+    "label": "Logo & icons",
+    "type": "heading"
+   },
+   {
+    "key": "logo",
+    "label": "Logo (light version, for dark background)",
+    "type": "image",
+    "wide": true,
+    "help": "Transparent PNG recommended, at least 600px wide. Default: <code>assets/img/logo.png</code>"
+   },
+   {
+    "key": "logo_height",
+    "label": "Header logo height (px)",
+    "type": "number",
+    "min": 20,
+    "max": 90
+   },
+   {
+    "key": "footer_logo_height",
+    "label": "Footer logo height (px)",
+    "type": "number",
+    "min": 20,
+    "max": 90
+   },
+   {
+    "key": "favicon",
+    "label": "Favicon (browser tab icon)",
+    "type": "image",
+    "wide": true,
+    "help": "Square PNG, 64×64 or larger. Default: <code>assets/img/favicon.png</code>"
+   },
+   {
+    "key": "h2",
+    "label": "Theme colours",
+    "type": "heading",
+    "help": "Taken from the NiftyMeter logo by default. Lighter/darker shades are calculated automatically."
+   },
+   {
+    "key": "color_accent",
+    "label": "Accent (buttons, highlights)",
+    "type": "color"
+   },
+   {
+    "key": "color_bg",
+    "label": "Page background",
+    "type": "color"
+   },
+   {
+    "key": "color_surface",
+    "label": "Alternate section background",
+    "type": "color"
+   },
+   {
+    "key": "color_card",
+    "label": "Card background",
+    "type": "color"
+   }
+  ]
+ },
+ "sections": {
+  "fields": [
+   {
+    "key": "h1",
+    "label": "Show / hide sections",
+    "type": "heading",
+    "help": "Hidden sections disappear from the page (and menu anchors pointing to them stop working — update Content › Nav & footer if needed)."
+   },
+   {
+    "key": "show_banner",
+    "label": "Launch offer banner & countdown",
+    "type": "toggle"
+   },
+   {
+    "key": "show_marquee",
+    "label": "Scrolling ticker",
+    "type": "toggle"
+   },
+   {
+    "key": "show_charts",
+    "label": "Live chart examples",
+    "type": "toggle"
+   },
+   {
+    "key": "show_trial",
+    "label": "Free trial section",
+    "type": "toggle"
+   },
+   {
+    "key": "show_markets",
+    "label": "Markets & timeframes",
+    "type": "toggle"
+   },
+   {
+    "key": "show_strategy",
+    "label": "Interactive strategy walkthrough",
+    "type": "toggle"
+   },
+   {
+    "key": "show_features",
+    "label": "Features",
+    "type": "toggle"
+   },
+   {
+    "key": "show_steps",
+    "label": "How it works",
+    "type": "toggle"
+   },
+   {
+    "key": "show_trust",
+    "label": "Trust numbers strip",
+    "type": "toggle"
+   },
+   {
+    "key": "show_pricing",
+    "label": "Pricing / partner broker card",
+    "type": "toggle"
+   },
+   {
+    "key": "show_broker_strip",
+    "label": "Partner broker strip (below hero)",
+    "type": "toggle"
+   },
+   {
+    "key": "show_testi",
+    "label": "Testimonials",
+    "type": "toggle"
+   },
+   {
+    "key": "show_leadform",
+    "label": "Enquiry form",
+    "type": "toggle"
+   },
+   {
+    "key": "show_faq",
+    "label": "FAQ",
+    "type": "toggle"
+   },
+   {
+    "key": "h2",
+    "label": "Recent sign-up popup",
+    "type": "heading",
+    "help": "Shows genuine recent trial requests (first name + last initial only, e.g. \"Rahul K.\"). Nothing is shown until real leads exist. Rejected leads are never shown."
+   },
+   {
+    "key": "popup_enabled",
+    "label": "Enable the popup",
+    "type": "toggle"
+   },
+   {
+    "key": "popup_action",
+    "label": "Popup text",
+    "type": "text",
+    "help": "Shown as: <em>Rahul K. — [text] NiftyMeter 🚀</em>"
+   },
+   {
+    "key": "popup_delay",
+    "label": "First popup after (seconds)",
+    "type": "number",
+    "min": 1,
+    "max": 120
+   },
+   {
+    "key": "popup_interval",
+    "label": "Time between popups (seconds)",
+    "type": "number",
+    "min": 8,
+    "max": 600
+   },
+   {
+    "key": "popup_days",
+    "label": "Only use sign-ups from the last (days)",
+    "type": "number",
+    "min": 1,
+    "max": 90
+   }
+  ]
+ },
+ "marketing": {
+  "fields": [
+   {
+    "key": "h1",
+    "label": "Google",
+    "type": "heading",
+    "help": "Use either GA4 directly, or Google Tag Manager (then add GA4 inside GTM) — not both for the same property."
+   },
+   {
+    "key": "ga4_id",
+    "label": "Google Analytics 4 — Measurement ID",
+    "type": "text",
+    "placeholder": "G-XXXXXXXXXX"
+   },
+   {
+    "key": "gtm_id",
+    "label": "Google Tag Manager — Container ID",
+    "type": "text",
+    "placeholder": "GTM-XXXXXXX"
+   },
+   {
+    "key": "gads_id",
+    "label": "Google Ads — Conversion ID",
+    "type": "text",
+    "placeholder": "AW-123456789"
+   },
+   {
+    "key": "gads_label",
+    "label": "Google Ads — Lead conversion label",
+    "type": "text",
+    "placeholder": "AbCdEfGhIj",
+    "help": "From Google Ads › Goals › Conversions › your \"Lead\" action › Tag setup. Fires when the enquiry form is submitted."
+   },
+   {
+    "key": "h2",
+    "label": "Meta (Facebook & Instagram ads)",
+    "type": "heading"
+   },
+   {
+    "key": "meta_pixel_id",
+    "label": "Meta Pixel ID",
+    "type": "text",
+    "placeholder": "123456789012345",
+    "help": "Events sent automatically: <code>PageView</code>, <code>ViewContent</code> (CTA clicks), <code>Lead</code> (form submit), <code>InitiateCheckout</code> (Buy Now clicks)."
+   },
+   {
+    "key": "h3",
+    "label": "Other platforms",
+    "type": "heading"
+   },
+   {
+    "key": "linkedin_partner_id",
+    "label": "LinkedIn Insight Tag — Partner ID",
+    "type": "text",
+    "placeholder": "1234567"
+   },
+   {
+    "key": "linkedin_conversion_id",
+    "label": "LinkedIn — Lead conversion ID (optional)",
+    "type": "text"
+   },
+   {
+    "key": "clarity_id",
+    "label": "Microsoft Clarity — Project ID (heatmaps & recordings)",
+    "type": "text",
+    "placeholder": "abcd1234ef"
+   }
+  ],
+  "codeFields": [
+   {
+    "key": "h4",
+    "label": "Custom code",
+    "type": "heading",
+    "help": "For any other platform (Taboola, Quora, Snapchat, Twitter/X pixel, chat widgets…). Paste the full snippet including &lt;script&gt; tags. ⚠ Only paste code from sources you trust — it runs on every page view."
+   },
+   {
+    "key": "custom_head",
+    "label": "Code before </head>",
+    "type": "code",
+    "rows": 7
+   },
+   {
+    "key": "custom_body",
+    "label": "Code before </body>",
+    "type": "code",
+    "rows": 7
+   }
+  ]
+ },
+ "seo": {
+  "fields": [
+   {
+    "key": "h1",
+    "label": "Search engines",
+    "type": "heading"
+   },
+   {
+    "key": "seo_title",
+    "label": "Meta title",
+    "type": "text",
+    "wide": true,
+    "help": "Shown in Google results and the browser tab. Aim for 50–60 characters. <span class=\"counter\" data-for=\"f_seo_title\" data-max=\"60\"></span>"
+   },
+   {
+    "key": "seo_description",
+    "label": "Meta description",
+    "type": "textarea",
+    "rows": 3,
+    "help": "Aim for 140–160 characters. <span class=\"counter\" data-for=\"f_seo_description\" data-max=\"160\"></span>"
+   },
+   {
+    "key": "seo_keywords",
+    "label": "Meta keywords",
+    "type": "text",
+    "wide": true,
+    "help": "Optional, comma-separated (Google ignores this; some other engines use it)."
+   },
+   {
+    "key": "seo_canonical",
+    "label": "Canonical URL",
+    "type": "url",
+    "placeholder": "https://niftymeter.com/",
+    "help": "Your preferred address (with or without www). Leave empty to auto-detect."
+   },
+   {
+    "key": "seo_noindex",
+    "label": "Hide site from search engines (noindex)",
+    "type": "toggle",
+    "help": "Turn on while testing; turn off at launch."
+   },
+   {
+    "key": "h2",
+    "label": "Social sharing (WhatsApp, Facebook, X, LinkedIn previews)",
+    "type": "heading"
+   },
+   {
+    "key": "og_title",
+    "label": "Share title",
+    "type": "text",
+    "help": "Leave empty to use the meta title."
+   },
+   {
+    "key": "og_description",
+    "label": "Share description",
+    "type": "textarea",
+    "rows": 2,
+    "help": "Leave empty to use the meta description."
+   },
+   {
+    "key": "og_image",
+    "label": "Share image (1200 × 630)",
+    "type": "image",
+    "wide": true
+   },
+   {
+    "key": "twitter_handle",
+    "label": "X / Twitter handle",
+    "type": "text",
+    "placeholder": "@niftymeter"
+   },
+   {
+    "key": "h3",
+    "label": "Site verification",
+    "type": "heading",
+    "help": "Paste only the <code>content=\"…\"</code> value from the verification meta tag."
+   },
+   {
+    "key": "verify_google",
+    "label": "Google Search Console",
+    "type": "text"
+   },
+   {
+    "key": "verify_meta",
+    "label": "Meta (Facebook) domain verification",
+    "type": "text",
+    "help": "Required for Meta ads event configuration (Business Settings › Brand safety › Domains)."
+   },
+   {
+    "key": "verify_bing",
+    "label": "Bing Webmaster Tools",
+    "type": "text"
+   },
+   {
+    "key": "h4",
+    "label": "robots.txt",
+    "type": "heading"
+   },
+   {
+    "key": "robots_extra",
+    "label": "Extra robots.txt rules",
+    "type": "code",
+    "rows": 4
+   }
+  ]
+ },
+ "integrations": {
+  "fields": [
+   {
+    "key": "h1",
+    "label": "New-lead alerts",
+    "type": "heading"
+   },
+   {
+    "key": "notify_enabled",
+    "label": "Email me when a new lead arrives",
+    "type": "toggle"
+   },
+   {
+    "key": "notify_emails",
+    "label": "Send alerts to (comma-separated)",
+    "type": "text",
+    "wide": true,
+    "placeholder": "you@gmail.com, team@niftymeter.com"
+   },
+   {
+    "key": "h2",
+    "label": "Auto-reply to the lead",
+    "type": "heading"
+   },
+   {
+    "key": "autoreply_enabled",
+    "label": "Send an automatic confirmation email",
+    "type": "toggle"
+   },
+   {
+    "key": "autoreply_subject",
+    "label": "Subject",
+    "type": "text",
+    "wide": true
+   },
+   {
+    "key": "autoreply_body",
+    "label": "Message",
+    "type": "textarea",
+    "rows": 7,
+    "help": "Placeholders: <code>{first_name}</code> <code>{last_name}</code> <code>{email}</code> <code>{phone}</code> <code>{tv_email}</code> <code>{interest}</code> <code>{message}</code> <code>{site_name}</code>"
+   },
+   {
+    "key": "h3",
+    "label": "Email delivery",
+    "type": "heading",
+    "help": "Used for lead alerts, auto-replies and admin password-reset links. <strong>Resend</strong> is recommended — shared-host PHP mail often lands in spam or is blocked."
+   },
+   {
+    "key": "mail_driver",
+    "label": "Send emails with",
+    "type": "select",
+    "options": [
+     [
+      "resend",
+      "Resend API (recommended)"
+     ],
+     [
+      "php",
+      "Hosting server (PHP mail)"
+     ]
+    ]
+   },
+   {
+    "key": "mail_from",
+    "label": "From email",
+    "type": "email",
+    "placeholder": "no-reply@niftymeter.com",
+    "help": "With Resend this must be on a domain you have verified in Resend (Domains). For testing you can use <code>onboarding@resend.dev</code> (sends only to your own Resend account email)."
+   },
+   {
+    "key": "mail_from_name",
+    "label": "From name",
+    "type": "text"
+   },
+   {
+    "key": "h4",
+    "label": "Webhook / Google Sheets",
+    "type": "heading",
+    "help": "Optional: every lead is also POSTed as JSON to this URL — e.g. your existing Google Apps Script Web App (fields: timestamp, firstName, lastName, email, phone, tvUsername, utmSource, utmCampaign, leadId), Zapier, Make or Pabbly."
+   },
+   {
+    "key": "webhook_enabled",
+    "label": "Forward leads to webhook",
+    "type": "toggle"
+   },
+   {
+    "key": "webhook_url",
+    "label": "Webhook URL",
+    "type": "url",
+    "wide": true,
+    "placeholder": "https://script.google.com/macros/s/…/exec"
+   }
+  ]
+ },
+ "ai": {
+  "fields": [
+   {
+    "key": "h1",
+    "label": "Chat widget",
+    "type": "heading"
+   },
+   {
+    "key": "ai_enabled",
+    "label": "Show the AI chat on the website",
+    "type": "toggle"
+   },
+   {
+    "key": "ai_title",
+    "label": "Assistant name",
+    "type": "text"
+   },
+   {
+    "key": "ai_greeting",
+    "label": "Greeting message",
+    "type": "textarea",
+    "rows": 2
+   },
+   {
+    "key": "ai_suggestions",
+    "label": "Suggested questions (one per line, max 6)",
+    "type": "lines",
+    "rows": 5
+   },
+   {
+    "key": "ai_rate_limit",
+    "label": "Max questions per visitor per hour",
+    "type": "number",
+    "min": 5,
+    "max": 500
+   },
+   {
+    "key": "h2",
+    "label": "AI model",
+    "type": "heading",
+    "help": "Without an API key the chat still works: it replies with the best-matching section of your knowledge base. With a key it writes natural answers using only your knowledge base."
+   },
+   {
+    "key": "ai_provider",
+    "label": "Provider",
+    "type": "select",
+    "options": [
+     [
+      "anthropic",
+      "Anthropic Claude (recommended)"
+     ],
+     [
+      "openai",
+      "OpenAI or any OpenAI-compatible API"
+     ]
+    ]
+   },
+   {
+    "key": "ai_model",
+    "label": "Model",
+    "type": "text",
+    "help": "Claude: <code>claude-haiku-5-5</code> (fast, low cost) or <code>claude-sonnet-5-5</code>. OpenAI-compatible: the provider's model name."
+   },
+   {
+    "key": "ai_base_url",
+    "label": "API base URL (OpenAI-compatible only)",
+    "type": "url",
+    "help": "e.g. <code>https://api.openai.com/v1</code>"
+   },
+   {
+    "key": "ai_max_tokens",
+    "label": "Max answer length (tokens)",
+    "type": "number",
+    "min": 150,
+    "max": 2000
+   },
+   {
+    "key": "ai_extra",
+    "label": "Extra instructions for the assistant",
+    "type": "textarea",
+    "rows": 3,
+    "help": "Optional. e.g. \"Always end with a link to the free enquiry form.\""
+   }
+  ]
+ },
+ "settings": {
+  "fields": [
+   {
+    "key": "h1",
+    "label": "Maintenance mode",
+    "type": "heading",
+    "help": "While ON, visitors see a \"back soon\" page (HTTP 503, so Google won't de-index you). Logged-in admins still see the full site."
+   },
+   {
+    "key": "maintenance",
+    "label": "Maintenance mode",
+    "type": "toggle"
+   },
+   {
+    "key": "maintenance_title",
+    "label": "Maintenance heading",
+    "type": "text"
+   },
+   {
+    "key": "maintenance_msg",
+    "label": "Maintenance message",
+    "type": "textarea",
+    "rows": 2
+   },
+   {
+    "key": "h2",
+    "label": "Leads",
+    "type": "heading"
+   },
+   {
+    "key": "lead_statuses",
+    "label": "Lead pipeline stages",
+    "type": "lines",
+    "rows": 6,
+    "help": "One per line, lowercase. Keep <code>new</code>, <code>converted</code> and <code>rejected</code> — the dashboard and popup use them."
+   }
+  ]
+ },
+ "security": {
+  "policy": [
+   {
+    "key": "pw_min_length",
+    "label": "Minimum password length",
+    "type": "number",
+    "min": 8,
+    "max": 64
+   },
+   {
+    "key": "pw_require_mix",
+    "label": "Require letters and numbers",
+    "type": "toggle"
+   },
+   {
+    "key": "reset_ttl",
+    "label": "Reset link valid for (minutes)",
+    "type": "number",
+    "min": 10,
+    "max": 1440
+   }
+  ]
+ }
+}

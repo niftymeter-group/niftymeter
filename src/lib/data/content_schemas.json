@@ -1,0 +1,806 @@
+{
+ "hero": [
+  "Hero",
+  [
+   {
+    "key": "hero_badge",
+    "label": "Badge above headline",
+    "type": "text"
+   },
+   {
+    "key": "hero_title",
+    "label": "Headline",
+    "type": "rich",
+    "rows": 2,
+    "help": "Example: <code>Read the Market *Like Smart Money.*</code> — the starred part shows in accent green."
+   },
+   {
+    "key": "hero_desc",
+    "label": "Description",
+    "type": "rich",
+    "rows": 4
+   },
+   {
+    "key": "hero_cta1_text",
+    "label": "Primary button text",
+    "type": "text"
+   },
+   {
+    "key": "hero_cta1_href",
+    "label": "Primary button link",
+    "type": "url",
+    "help": "<code>#lead-form</code> scrolls to the form; or a full https:// link."
+   },
+   {
+    "key": "hero_cta2_text",
+    "label": "Secondary button text",
+    "type": "text"
+   },
+   {
+    "key": "hero_cta2_href",
+    "label": "Secondary button link",
+    "type": "url"
+   },
+   {
+    "key": "hero_note",
+    "label": "Small note under buttons",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "hero_stats",
+    "label": "Stats row",
+    "type": "repeater",
+    "item": "stat",
+    "title_field": "label",
+    "max": 6,
+    "fields": [
+     {
+      "key": "num",
+      "label": "Number",
+      "type": "text"
+     },
+     {
+      "key": "label",
+      "label": "Label",
+      "type": "text"
+     }
+    ]
+   },
+   {
+    "key": "marquee",
+    "label": "Scrolling ticker (marquee)",
+    "type": "repeater",
+    "item": "item",
+    "title_field": "em",
+    "fields": [
+     {
+      "key": "icon",
+      "label": "Emoji",
+      "type": "text"
+     },
+     {
+      "key": "em",
+      "label": "Highlighted word",
+      "type": "text"
+     },
+     {
+      "key": "text",
+      "label": "Text",
+      "type": "text"
+     }
+    ]
+   }
+  ]
+ ],
+ "banner": [
+  "Launch offer banner",
+  [
+   {
+    "key": "show_banner",
+    "label": "Show the launch offer banner",
+    "type": "toggle",
+    "help": "Switch off to hide the banner everywhere on the website. Your text and dates are kept."
+   },
+   {
+    "key": "banner_msg",
+    "label": "Message",
+    "type": "text"
+   },
+   {
+    "key": "banner_sub",
+    "label": "Sub text",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "banner_btn",
+    "label": "Button text",
+    "type": "text"
+   },
+   {
+    "key": "banner_btn_href",
+    "label": "Button link",
+    "type": "url"
+   },
+   {
+    "key": "banner_start",
+    "label": "Show from (optional)",
+    "type": "datetime",
+    "help": "Schedule the banner to appear at this time. Leave empty to show it as soon as it is switched on."
+   },
+   {
+    "key": "banner_end",
+    "label": "Offer ends at (your local time)",
+    "type": "datetime",
+    "help": "The countdown runs to this exact moment for every visitor. Leave empty to show the banner without a countdown."
+   },
+   {
+    "key": "banner_expired",
+    "label": "Message after the offer ends",
+    "type": "text",
+    "help": "Leave empty to hide the banner automatically once the offer ends."
+   }
+  ]
+ ],
+ "charts": [
+  "Live charts",
+  [
+   {
+    "key": "charts_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "charts_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "charts_sub",
+    "label": "Section description",
+    "type": "rich"
+   },
+   {
+    "key": "charts",
+    "label": "Chart tabs",
+    "type": "repeater",
+    "item": "chart",
+    "title_field": "tab",
+    "max": 8,
+    "help": "Upload a TradingView screenshot for each tab (PNG/JPG, ideally 1800px wide).",
+    "fields": [
+     {
+      "key": "tab",
+      "label": "Tab label",
+      "type": "text"
+     },
+     {
+      "key": "name",
+      "label": "Chart title",
+      "type": "text"
+     },
+     {
+      "key": "image",
+      "label": "Chart image",
+      "type": "image",
+      "wide": true
+     },
+     {
+      "key": "sub",
+      "label": "Caption",
+      "type": "text",
+      "wide": true
+     },
+     {
+      "key": "tag1",
+      "label": "Tag 1",
+      "type": "text"
+     },
+     {
+      "key": "tag1_type",
+      "label": "Tag 1 colour",
+      "type": "select",
+      "options": [
+       [
+        "pos",
+        "Green (positive)"
+       ],
+       [
+        "neg",
+        "Red (negative)"
+       ],
+       [
+        "neu",
+        "Amber (neutral)"
+       ]
+      ]
+     },
+     {
+      "key": "tag2",
+      "label": "Tag 2",
+      "type": "text"
+     },
+     {
+      "key": "tag2_type",
+      "label": "Tag 2 colour",
+      "type": "select",
+      "options": [
+       [
+        "pos",
+        "Green (positive)"
+       ],
+       [
+        "neg",
+        "Red (negative)"
+       ],
+       [
+        "neu",
+        "Amber (neutral)"
+       ]
+      ]
+     }
+    ]
+   },
+   {
+    "key": "signal_cards",
+    "label": "Band colour guide cards",
+    "type": "repeater",
+    "item": "card",
+    "title_field": "title",
+    "max": 8,
+    "fields": [
+     {
+      "key": "title",
+      "label": "Title",
+      "type": "text"
+     },
+     {
+      "key": "type",
+      "label": "Band colour",
+      "type": "select",
+      "options": [
+       [
+        "green",
+        "Green (bullish · tradeable)"
+       ],
+       [
+        "red",
+        "Red (bearish · tradeable)"
+       ],
+       [
+        "white",
+        "White (neutral · no trade)"
+       ],
+       [
+        "pos",
+        "Light green (bullish · tradeable)"
+       ],
+       [
+        "posdark",
+        "Dark green (bullish · not tradeable)"
+       ],
+       [
+        "neg",
+        "Light red (bearish · tradeable)"
+       ],
+       [
+        "negdark",
+        "Dark red (bearish · not tradeable)"
+       ],
+       [
+        "neu",
+        "White (not tradeable)"
+       ]
+      ]
+     },
+     {
+      "key": "text",
+      "label": "Text",
+      "type": "text",
+      "wide": true
+     }
+    ]
+   }
+  ]
+ ],
+ "trial": [
+  "Free trial",
+  [
+   {
+    "key": "trial_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "trial_title",
+    "label": "Heading",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "trial_desc",
+    "label": "Description",
+    "type": "rich"
+   },
+   {
+    "key": "trial_items",
+    "label": "Benefit list",
+    "type": "repeater",
+    "item": "benefit",
+    "title_field": "title",
+    "fields": [
+     {
+      "key": "icon",
+      "label": "Emoji",
+      "type": "text"
+     },
+     {
+      "key": "title",
+      "label": "Title",
+      "type": "text"
+     },
+     {
+      "key": "text",
+      "label": "Text",
+      "type": "textarea",
+      "rows": 2
+     }
+    ]
+   },
+   {
+    "key": "trial_card_big",
+    "label": "Card big text",
+    "type": "text"
+   },
+   {
+    "key": "trial_card_sub",
+    "label": "Card sub text",
+    "type": "text"
+   },
+   {
+    "key": "trial_card_list",
+    "label": "Card checklist",
+    "type": "lines",
+    "rows": 6
+   },
+   {
+    "key": "trial_card_btn",
+    "label": "Card button",
+    "type": "text"
+   },
+   {
+    "key": "trial_card_note",
+    "label": "Card note",
+    "type": "text"
+   }
+  ]
+ ],
+ "markets": [
+  "Markets",
+  [
+   {
+    "key": "markets_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "markets_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "markets_sub",
+    "label": "Description",
+    "type": "rich"
+   },
+   {
+    "key": "markets",
+    "label": "Markets",
+    "type": "repeater",
+    "item": "market",
+    "title_field": "name",
+    "fields": [
+     {
+      "key": "icon",
+      "label": "Emoji",
+      "type": "text"
+     },
+     {
+      "key": "name",
+      "label": "Name",
+      "type": "text"
+     },
+     {
+      "key": "sub",
+      "label": "Sub text",
+      "type": "text"
+     }
+    ]
+   },
+   {
+    "key": "timeframes",
+    "label": "Supported timeframes",
+    "type": "lines",
+    "rows": 4
+   },
+   {
+    "key": "timeframes_note",
+    "label": "Timeframes note",
+    "type": "text"
+   },
+   {
+    "key": "strategy_label",
+    "label": "Strategy walkthrough — small label",
+    "type": "text"
+   },
+   {
+    "key": "strategy_title",
+    "label": "Strategy walkthrough — title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "strategy_sub",
+    "label": "Strategy walkthrough — description",
+    "type": "rich"
+   }
+  ]
+ ],
+ "features": [
+  "Features",
+  [
+   {
+    "key": "features_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "features_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "features_sub",
+    "label": "Description",
+    "type": "rich"
+   },
+   {
+    "key": "features",
+    "label": "Feature cards",
+    "type": "repeater",
+    "item": "feature",
+    "title_field": "title",
+    "fields": [
+     {
+      "key": "icon",
+      "label": "Emoji",
+      "type": "text"
+     },
+     {
+      "key": "title",
+      "label": "Title",
+      "type": "text"
+     },
+     {
+      "key": "text",
+      "label": "Description",
+      "type": "textarea",
+      "rows": 3
+     }
+    ]
+   }
+  ]
+ ],
+ "steps": [
+  "How it works",
+  [
+   {
+    "key": "steps_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "steps_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "steps",
+    "label": "Steps",
+    "type": "repeater",
+    "item": "step",
+    "title_field": "title",
+    "max": 8,
+    "fields": [
+     {
+      "key": "title",
+      "label": "Title",
+      "type": "text"
+     },
+     {
+      "key": "text",
+      "label": "Description",
+      "type": "textarea",
+      "rows": 2
+     }
+    ]
+   },
+   {
+    "key": "trust",
+    "label": "Trust strip numbers",
+    "type": "repeater",
+    "item": "number",
+    "title_field": "label",
+    "max": 8,
+    "fields": [
+     {
+      "key": "num",
+      "label": "Number / value",
+      "type": "text"
+     },
+     {
+      "key": "label",
+      "label": "Label",
+      "type": "text"
+     }
+    ]
+   }
+  ]
+ ],
+ "testimonials": [
+  "Testimonials",
+  [
+   {
+    "key": "testi_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "testi_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "testimonials",
+    "label": "Testimonials",
+    "type": "repeater",
+    "item": "testimonial",
+    "title_field": "name",
+    "help": "Only publish genuine feedback from real members (with their permission).",
+    "fields": [
+     {
+      "key": "name",
+      "label": "Name",
+      "type": "text"
+     },
+     {
+      "key": "role",
+      "label": "Role · City",
+      "type": "text"
+     },
+     {
+      "key": "stars",
+      "label": "Stars",
+      "type": "select",
+      "options": [
+       [
+        "5",
+        "★★★★★"
+       ],
+       [
+        "4",
+        "★★★★"
+       ],
+       [
+        "3",
+        "★★★"
+       ]
+      ]
+     },
+     {
+      "key": "quote",
+      "label": "Quote",
+      "type": "textarea",
+      "rows": 3
+     }
+    ]
+   }
+  ]
+ ],
+ "leadform": [
+  "Enquiry form",
+  [
+   {
+    "key": "lead_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "lead_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "lead_sub",
+    "label": "Section description",
+    "type": "rich"
+   },
+   {
+    "key": "form_head",
+    "label": "Form heading",
+    "type": "text"
+   },
+   {
+    "key": "form_sub",
+    "label": "Form sub heading",
+    "type": "text"
+   },
+   {
+    "key": "enquiry_options",
+    "label": "\"I'm interested in\" options",
+    "type": "lines",
+    "rows": 6,
+    "help": "One per line; the first is selected by default. Options containing \"broker\" show only in the broker model; options containing \"lifetime\" only in the price model. Buttons such as \"Start Free Trial\" preselect the option containing \"trial\"."
+   },
+   {
+    "key": "enquiry_tv_options",
+    "label": "Options that ask for the TradingView email",
+    "type": "lines",
+    "rows": 3,
+    "help": "Must match the option text above exactly."
+   },
+   {
+    "key": "enquiry_msg_label",
+    "label": "Message field label",
+    "type": "text"
+   },
+   {
+    "key": "form_btn",
+    "label": "Submit button",
+    "type": "text"
+   },
+   {
+    "key": "form_privacy",
+    "label": "Privacy note",
+    "type": "textarea",
+    "rows": 2
+   },
+   {
+    "key": "success_title",
+    "label": "Success title",
+    "type": "text"
+   },
+   {
+    "key": "success_text",
+    "label": "Success message",
+    "type": "textarea",
+    "rows": 3,
+    "help": "<code>{email}</code> is replaced with the visitor's email."
+   },
+   {
+    "key": "success_sign",
+    "label": "Success sign-off",
+    "type": "text"
+   }
+  ]
+ ],
+ "faq": [
+  "FAQ",
+  [
+   {
+    "key": "faq_label",
+    "label": "Small label",
+    "type": "text"
+   },
+   {
+    "key": "faq_title",
+    "label": "Section title",
+    "type": "rich",
+    "rows": 2
+   },
+   {
+    "key": "faqs",
+    "label": "Questions",
+    "type": "repeater",
+    "item": "question",
+    "title_field": "q",
+    "fields": [
+     {
+      "key": "q",
+      "label": "Question",
+      "type": "text",
+      "wide": true
+     },
+     {
+      "key": "a",
+      "label": "Answer",
+      "type": "rich",
+      "rows": 4
+     }
+    ]
+   }
+  ]
+ ],
+ "footer": [
+  "Nav & footer",
+  [
+   {
+    "key": "nav_links",
+    "label": "Menu links",
+    "type": "repeater",
+    "item": "link",
+    "title_field": "label",
+    "max": 8,
+    "fields": [
+     {
+      "key": "label",
+      "label": "Label",
+      "type": "text"
+     },
+     {
+      "key": "href",
+      "label": "Link",
+      "type": "url",
+      "placeholder": "#features"
+     }
+    ]
+   },
+   {
+    "key": "nav_cta_text",
+    "label": "Menu button text",
+    "type": "text"
+   },
+   {
+    "key": "nav_cta_href",
+    "label": "Menu button link",
+    "type": "url"
+   },
+   {
+    "key": "footer_desc",
+    "label": "Footer description",
+    "type": "textarea",
+    "rows": 2
+   },
+   {
+    "key": "footer_copyright",
+    "label": "Copyright line",
+    "type": "text",
+    "wide": true,
+    "help": "<code>{year}</code> becomes the current year."
+   },
+   {
+    "key": "footer_disclaimer",
+    "label": "Risk disclaimer",
+    "type": "textarea",
+    "rows": 3
+   },
+   {
+    "key": "footer_links",
+    "label": "Legal links (Privacy, Terms, Refund…)",
+    "type": "repeater",
+    "item": "link",
+    "title_field": "label",
+    "help": "Links without a URL are hidden.",
+    "fields": [
+     {
+      "key": "label",
+      "label": "Label",
+      "type": "text"
+     },
+     {
+      "key": "href",
+      "label": "URL",
+      "type": "url"
+     }
+    ]
+   }
+  ]
+ ]
+}
